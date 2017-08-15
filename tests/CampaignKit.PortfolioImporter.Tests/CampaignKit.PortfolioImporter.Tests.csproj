@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>CampaignKit Portfolio Importer Tests</Description>
+    <Copyright>Copyright © 2017 by Jochen Linnemann</Copyright>
+    <AssemblyTitle>CampaignKit Hero Lab File Handler Tests</AssemblyTitle>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <VersionPrefix>2.17.3</VersionPrefix>
+    <Authors>Jochen Linnemann</Authors>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <AssemblyName>CampaignKit.PortfolioImporter.Tests</AssemblyName>
+    <PackageId>CampaignKit.PortfolioImporter.Tests</PackageId>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+    <RuntimeFrameworkVersion>1.1.2</RuntimeFrameworkVersion>
+    <PackageTargetFallback>$(PackageTargetFallback);dotnet5.6;portable-net45+win8</PackageTargetFallback>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <RootNamespace>CampaignKit.PortfolioImporter.Tests</RootNamespace>
+    <PackageLicenseUrl>https://github.com/open-campaign-logger/portfolio-importer/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://campaign-logger.com/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/open-campaign-logger/portfolio-importer</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\data\TestData.por" Link="Properties\TestData.por" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="1.1.18" />
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="1.1.2" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.1.18" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\CampaignKit.PortfolioImporter\CampaignKit.PortfolioImporter.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
+  </ItemGroup>
+
+</Project>
