@@ -59,11 +59,23 @@ namespace CampaignKit.PortfolioImporter.Services
             var doc = new XPathDocument(new StringReader(character.Xml));
             var nav = doc.CreateNavigator().SelectSingleNode("//character");
 
-            var formattedText = FormatForDnd5E(nav);
+            StringBuilder formattedText;
+            switch (character.Game)
+            {
+                case "5th Edition SRD":
+                    formattedText = FormatForDnd5E(nav);
+                    break;
+                case "Pathfinder Roleplaying Game":
+                    formattedText = FormatForPathfinder(nav);
+                    break;
+                default:
+                    formattedText = new StringBuilder();
+                    break;
+            }
 
             return new FormattedCharacter
             {
-                FormattedText = formattedText.ToString(),
+                FormattedText = formattedText?.ToString(),
                 Html = character.Html,
                 Name = character.Name,
                 Text = character.Text,

@@ -45,6 +45,8 @@ namespace CampaignKit.PortfolioImporter.Entities
         /// <value>The XML.</value>
         public string Xml { get; set; }
 
+        public string Game { get; set; }
+
         #endregion
     }
 }

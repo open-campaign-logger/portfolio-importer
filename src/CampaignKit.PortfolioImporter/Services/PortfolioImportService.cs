@@ -18,6 +18,7 @@ using System.IO.Compression;
 using System.Xml.XPath;
 
 using CampaignKit.PortfolioImporter.Entities;
+using CampaignKit.PortfolioImporter.Extensions;
 
 namespace CampaignKit.PortfolioImporter.Services
 {
@@ -60,6 +61,8 @@ namespace CampaignKit.PortfolioImporter.Services
                 {
                     var indexDocument = new XPathDocument(indexStream);
                     var navigator = indexDocument.CreateNavigator();
+                    var game = navigator.Get("/document/game/@name");
+                    
                     var characters = navigator.Select("/document/characters/character");
                     foreach (XPathNavigator character in characters)
                     {
@@ -96,7 +99,7 @@ namespace CampaignKit.PortfolioImporter.Services
                             }
                         }
 
-                        yield return new Character { Name = name, Text = text, Html = html, Xml = xml };
+                        yield return new Character { Name = name, Text = text, Html = html, Xml = xml, Game = game };
                     }
                 }
             }
