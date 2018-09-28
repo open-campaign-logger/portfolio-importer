@@ -37,12 +37,16 @@ namespace CampaignKit.PortfolioImporter.Entities.HeroLab
         public Proficiencybonus Proficiencybonus { get; set; }
         [XmlElement(ElementName = "racespells")]
         public Racespells Racespells { get; set; }
-        [XmlElement(ElementName = "itemspells")]
-        public string Itemspells { get; set; } // ToDo: Need example .por
+        
         [XmlElement(ElementName = "cantrips")]
         public Cantrips Cantrips { get; set; }
         [XmlElement(ElementName = "spellslots")]
         public Spellslots Spellslots { get; set; }
+
+        //Not Supported
+        //[XmlElement(ElementName = "itemspells")]
+        //public string Itemspells { get; set; } // ToDo: Need example .por
+
     }
 
 

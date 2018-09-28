@@ -204,7 +204,7 @@ namespace CampaignKit.PortfolioImporter.Entities.HeroLab
         public class Auras
         {
             [XmlElement(ElementName = "special")]
-            public Special Special { get; set; }
+            public List<Special> Special { get; set; }
         }
 
         [XmlRoot(ElementName = "faction")]
@@ -980,6 +980,13 @@ namespace CampaignKit.PortfolioImporter.Entities.HeroLab
         public List<Special> Special { get; set; }
     }
 
+    [XmlRoot(ElementName = "weaknesses")]
+    public class Weaknesses
+    {
+        [XmlElement(ElementName = "special")]
+        public List<Special> Special { get; set; }
+    }
+
     [XmlRoot(ElementName = "armorclass")]
     public class Armorclass
     {
@@ -1287,6 +1294,8 @@ namespace CampaignKit.PortfolioImporter.Entities.HeroLab
         public string Rangedattack { get; set; }
         [XmlAttribute(AttributeName = "baseattack")]
         public string Baseattack { get; set; }
+        [XmlElement(ElementName = "special")]
+        public List<Special> Special { get; set; }
     }
 
     #endregion
@@ -1308,6 +1317,8 @@ namespace CampaignKit.PortfolioImporter.Entities.HeroLab
         public string Level { get; set; }
         [XmlAttribute(AttributeName = "class")]
         public string Class { get; set; }
+        [XmlAttribute(AttributeName = "source")]
+        public string Source { get; set; }
         [XmlAttribute(AttributeName = "casttime")]
         public string Casttime { get; set; }
         [XmlAttribute(AttributeName = "range")]
@@ -1427,42 +1438,11 @@ namespace CampaignKit.PortfolioImporter.Entities.HeroLab
         public List<Special> Special { get; set; }
     }
 
-   [XmlRoot(ElementName = "spellability")]
-    public class Spellability
-    {
-        [XmlElement(ElementName = "description")]
-        public string Description { get; set; }
-        [XmlElement(ElementName = "spellcomp")]
-        public List<string> Spellcomp { get; set; }
-        [XmlElement(ElementName = "spellschool")]
-        public string Spellschool { get; set; }
-        [XmlAttribute(AttributeName = "name")]
-        public string Name { get; set; }
-        [XmlAttribute(AttributeName = "level")]
-        public string Level { get; set; }
-        [XmlAttribute(AttributeName = "source")]
-        public string Source { get; set; }
-        [XmlAttribute(AttributeName = "casttime")]
-        public string Casttime { get; set; }
-        [XmlAttribute(AttributeName = "range")]
-        public string Range { get; set; }
-        [XmlAttribute(AttributeName = "duration")]
-        public string Duration { get; set; }
-        [XmlAttribute(AttributeName = "dc")]
-        public string Dc { get; set; }
-        [XmlAttribute(AttributeName = "casterlevel")]
-        public string Casterlevel { get; set; }
-        [XmlAttribute(AttributeName = "componenttext")]
-        public string Componenttext { get; set; }
-        [XmlAttribute(AttributeName = "schooltext")]
-        public string Schooltext { get; set; }
-    }
-
     [XmlRoot(ElementName = "racespells")]
     public class Racespells
     {
         [XmlElement(ElementName = "spellability")]
-        public List<Spellability> Spellability { get; set; }
+        public List<Spell> Spell { get; set; }
     }
 
     #endregion
@@ -1733,38 +1713,443 @@ namespace CampaignKit.PortfolioImporter.Entities.HeroLab
         public string getCharacterName()
         {
             StringBuilder sb = new StringBuilder();
-            if (Name != null)
-            {
-                sb.Append(Name);
-            }
+            if (Name != null) { sb.Append(Name); }
             return sb.ToString().Trim();
         }
 
-        public string getCharacterType()
+        public List<string> getCharacterType()
         {
-            StringBuilder sb = new StringBuilder();
+            List<string> result = new List<string>();
             if ((Types != null) && (Types.Type != null) && (Types.Type.Count > 0))
             {
                 foreach (Type typ in Types.Type)
                 {
-                    sb.Append(typ.Name);
-                    sb.Append(" ");
+                    result.Add(typ.Name);
                 }
             }
-            return sb.ToString().Trim();
+            return result;
         }
 
         public string getCharacterAlignment()
         {
             StringBuilder sb = new StringBuilder();
-            if (Alignment != null)
+            if (Alignment != null) { sb.Append(Alignment.Name);}
+            return sb.ToString().Trim();
+        }
+
+        public string getArmorClass()
+        {
+            StringBuilder sb = new StringBuilder();
+            if (Armorclass != null) { sb.Append(Armorclass.Ac);}
+            return sb.ToString().Trim();
+        }
+
+        public string getHitPoints()
+        {
+            StringBuilder sb = new StringBuilder();
+            if (Health != null) { sb.Append(Health.Hitpoints);}
+            return sb.ToString().Trim();
+        }
+
+        public string getHitDice()
+        {
+            StringBuilder sb = new StringBuilder();
+            if (Health != null){ sb.Append(Health._Hitdice); }
+            return sb.ToString().Trim();
+        }
+
+        public string getSpeed()
+        {
+            StringBuilder sb = new StringBuilder();
+            if (Movement != null) { sb.Append(Movement.Speed); }
+            return sb.ToString().Trim();
+        }
+
+        public bool is5e()
+        {
+            return Abilityscores != null && Abilityscores.Abilityscore != null && Abilityscores.Abilityscore.Count > 0;
+        }
+
+        public bool isPathfinder()
+        {
+            return !is5e();
+        }
+
+        private string getAbilityScore(string ability)
+        {
+            StringBuilder sb = new StringBuilder();
+            if (is5e())
             {
-                sb.Append(Alignment.Name);
+                if (Abilityscores != null && Abilityscores.Abilityscore != null && Abilityscores.Abilityscore.Count > 0)
+                {
+                    foreach (Abilityscore ab in Abilityscores.Abilityscore)
+                    {
+                        if (ab.Name.Equals(ability)){ sb.Append(ab.Abilvalue.Text); }
+                    }
+                }
+            }
+            else
+            {
+                if (Attributes != null && Attributes.Attribute != null && Attributes.Attribute.Count > 0)
+                {
+                    foreach (Attribute ab in Attributes.Attribute)
+                    {
+                        if (ab.Name.Equals(ability)) { sb.Append(ab.Attrvalue.Text); }
+                    }
+                }
             }
             return sb.ToString().Trim();
         }
 
+        private string getAbilityBonus(string ability)
+        {
+            StringBuilder sb = new StringBuilder();
+            if (is5e())
+            {
+                foreach (Abilityscore ab in Abilityscores.Abilityscore)
+                {
+                    if (ab.Name.Equals(ability)) { sb.Append(ab.Abilbonus.Text); }
+                }
+            }
+            else
+            {
+                foreach (Attribute ab in Attributes.Attribute)
+                {
+                    if (ab.Name.Equals(ability)) { sb.Append(ab.Attrbonus.Text); }
+                }
+            }
+            return sb.ToString().Trim();
+        }
 
+        public string getSTR()
+        {
+            return getAbilityScore("Strength");
+        }
+
+        public string getDEX()
+        {
+            return getAbilityScore("Dexterity");
+        }
+
+        public string getCON()
+        {
+            return getAbilityScore("Constitution");
+        }
+
+        public string getINT()
+        {
+            return getAbilityScore("Intelligence");
+        }
+
+        public string getWIS()
+        {
+            return getAbilityScore("Wisdom");
+        }
+
+        public string getCHA()
+        {
+            return getAbilityScore("Charisma");
+        }
+
+        public string getSTRBonus()
+        {
+            return getAbilityBonus("Strength");
+        }
+
+        public string getDEXBonus()
+        {
+            return getAbilityBonus("Dexterity");
+        }
+
+        public string getCONBonus()
+        {
+            return getAbilityBonus("Constitution");
+        }
+
+        public string getINTBonus()
+        {
+            return getAbilityBonus("Intelligence");
+        }
+
+        public string getWISBonus()
+        {
+            return getAbilityBonus("Wisdom");
+        }
+
+        public string getCHABonus()
+        {
+            return getAbilityBonus("Charisma");
+        }
+
+        public List<string> getImmunities()
+        {
+            List<string> result = new List<string>();
+            if (is5e())
+            {
+                if (Damageimmunities != null) {
+                    string[] arr = Damageimmunities.Text.Split(',');
+                    result.AddRange(arr.ToList<string>());
+                }
+                if (Conditionimmunities != null) {
+                    string[] arr = Conditionimmunities.Text.Split(',');
+                    result.AddRange(arr.ToList<string>());
+                }
+            }
+            else
+            {
+                if (Immunities != null && Immunities.Special != null && Immunities.Special.Count > 0)
+                {
+                    foreach (Special sp in Immunities.Special)
+                    {
+                        result.Add(sp.Shortname);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public List<string> getResistances()
+        {
+            List<string> result = new List<string>();
+            if (is5e())
+            {
+                if (Damageresistances != null) {
+                    string[] arr = Damageresistances.Text.Split(',');
+                    result.AddRange(arr.ToList<string>());
+                };
+            }
+            else
+            {
+                if (Damagereduction != null && Damagereduction.Special != null && Damagereduction.Special.Count > 0)
+                {
+                    foreach (Special sp in Damagereduction.Special)
+                    {
+                        result.Add(sp.Shortname);
+                    }
+                }
+                if (Resistances != null && Resistances.Special != null && Resistances.Special.Count > 0)
+                {
+                    foreach (Special sp in Resistances.Special)
+                    {
+                        result.Add(sp.Shortname);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public List<string> getWeaknesses()
+        {
+            List<string> result = new List<string>();
+            if (is5e())
+            {
+                if (Damagevulnerabilities != null) {
+                    string[] arr = Damageresistances.Text.Split(',');
+                    result.AddRange(arr.ToList<string>());
+                }
+            }
+            else
+            {
+                if (Weaknesses != null && Weaknesses.Special != null && Weaknesses.Special.Count > 0)
+                {
+                    foreach (Special sp in Weaknesses.Special)
+                    {
+                        result.Add(sp.Shortname);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public List<string> getSenses()
+        {
+            List<string> result = new List<string>();
+            if (Senses != null && Senses.Special != null && Senses.Special.Count > 0)
+            {
+                foreach (Special sp in Senses.Special)
+                {
+                    result.Add(sp.Name);
+                }
+            }
+            return result;
+        }
+
+        public List<string> getAuras()
+        {
+            List<string> result = new List<string>();
+            if (Auras != null && Auras.Special != null && Auras.Special.Count > 0)
+            {
+                foreach (Special sp in Auras.Special)
+                {
+                    result.Add(sp.Name);
+                }
+            }
+            return result;
+        }
+
+        public List<string> getLanguages()
+        {
+            List<string> result = new List<string>();
+            if (Languages != null && Languages.Language != null && Languages.Language.Count > 0)
+            {
+                foreach (Language ln in Languages.Language)
+                {
+                    result.Add(ln.Name);
+                }
+            }
+            return result;
+        }
+
+        public string getCR()
+        {
+            StringBuilder sb = new StringBuilder();
+            if (Challengerating != null) { sb.Append(Challengerating.Value); }
+            return sb.ToString();
+        }
+
+        public string getXPAward()
+        {
+            StringBuilder sb = new StringBuilder();
+            if (Xpaward != null) { sb.Append(Xpaward.Value); }
+            return sb.ToString();
+        }
+
+        
+        public Dictionary<string, string> getSpecial()
+        {
+            Dictionary<string, string> result = new Dictionary<string, string>();
+            if (Otherspecials != null && Otherspecials.Special != null && Otherspecials.Special.Count > 0)
+            {
+                foreach (Special sp in Otherspecials.Special)
+                {
+                    result.Add(sp.Shortname, sp.Description);
+                }
+            }
+            if (Attack != null && Attack.Special != null && Attack.Special.Count > 0)
+            {
+                foreach (Special sp in Otherspecials.Special)
+                {
+                    result.Add(sp.Shortname, sp.Description);
+                }
+            }
+            if (Spelllike != null && Spelllike.Special != null && Spelllike.Special.Count > 0)
+            {
+                foreach (Special sp in Otherspecials.Special)
+                {
+                    result.Add(sp.Shortname, sp.Description);
+                }
+            }
+            
+            return result;
+        }
+
+        public Dictionary<string, string> getFeats()
+        {
+            Dictionary<string, string> result = new Dictionary<string, string>();
+            if (Feats != null && Feats.Feat != null && Feats.Feat.Count > 0)
+            {
+                foreach (Feat sp in Feats.Feat)
+                {
+                    result.Add(sp.Name, sp.Description);
+                }
+            }
+            return result;
+        }
+
+        public Dictionary<string, string> getTraits()
+        {
+            Dictionary<string, string> result = new Dictionary<string, string>();
+            if (Traits != null && Traits.Trait != null && Traits.Trait.Count > 0)
+            {
+                foreach (Trait sp in Traits.Trait)
+                {
+                    result.Add(sp.Name, sp.Description);
+                }
+            }
+            return result;
+        }
+
+        public Dictionary<string, string> getSkills()
+        {
+            Dictionary<string, string> result = new Dictionary<string, string>();
+            if (Skills != null && Skills.Skill != null && Skills.Skill.Count > 0)
+            {
+                foreach (Skill sp in Skills.Skill)
+                {
+                    string bonus;
+                    if (is5e())
+                    {
+                        bonus = sp.Abilbonus;
+                    }
+                    else
+                    {
+                        bonus = sp.Attrbonus;
+                    }
+                    if (sp.Isproficient.Equals("yes") || !sp.Ranks.Equals("0"))
+                    {
+                        result.Add(sp.Name, bonus);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public Dictionary<string, string> getSaves()
+        {
+            Dictionary<string, string> result = new Dictionary<string, string>();
+            if (is5e())
+            {
+                if (Abilityscores != null && Abilityscores.Abilityscore != null && Abilityscores.Abilityscore.Count > 0)
+                {
+                    foreach (Abilityscore ab in Abilityscores.Abilityscore)
+                    {
+                        if (ab.Savingthrow.Isproficient.Equals("yes"))
+                        {
+                            result.Add(ab.Name, ab.Savingthrow.Text);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (Saves != null && Saves.Save != null && Saves.Save.Count > 0)
+                {
+                    foreach (Save sv in Saves.Save)
+                    {
+                        result.Add(sv.Name, sv._save);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public List<Weapon> getWeapons()
+        {
+            List<Weapon> result = new List<Weapon>();
+            if (Melee != null && Melee.Weapon != null && Melee.Weapon.Count > 0)
+            {
+                result.AddRange(Melee.Weapon);
+            }
+            if (Ranged != null && Ranged.Weapon != null && Ranged.Weapon.Count > 0)
+            {
+                result.AddRange(Ranged.Weapon);
+            }
+            return result;
+        }
+
+        public List<Spell> getSpells()
+        {
+            List<Spell> result = new List<Spell>();
+            if (Spellsknown != null && Spellsknown.Spell != null && Spellsknown.Spell.Count > 0)
+            {
+                result.AddRange(Spellsknown.Spell);
+            }
+            if (Racespells != null && Racespells.Spell != null && Racespells.Spell.Count > 0)
+            {
+                result.AddRange(Racespells.Spell);
+            }
+            return result;
+        }
     }
 
     #endregion

@@ -30,7 +30,7 @@ namespace CampaignKit.PortfolioImporter.Entities.HeroLab
         [XmlElement(ElementName = "resistances")]
         public Resistances Resistances { get; set; }
         [XmlElement(ElementName = "weaknesses")]
-        public string Weaknesses { get; set; }
+        public Weaknesses Weaknesses { get; set; }
         [XmlElement(ElementName = "penalties")]
         public Penalties Penalties { get; set; }
         [XmlElement(ElementName = "maneuvers")]
@@ -38,17 +38,17 @@ namespace CampaignKit.PortfolioImporter.Entities.HeroLab
         
         [XmlElement(ElementName = "traits")]
         public Traits Traits { get; set; }
-
-
-		/* Not Supported
-		[XmlElement(ElementName = "flaws")]
-        public string Flaws { get; set; }
-        [XmlElement(ElementName = "skilltricks")]
-        public string Skilltricks { get; set; }
         [XmlElement(ElementName = "animaltricks")]
         public Animaltricks Animaltricks { get; set; }
-         */
-	}
+
+        // Not Supported
+        //[XmlElement(ElementName = "flaws")]
+        //public string Flaws { get; set; }
+        //[XmlElement(ElementName = "skilltricks")]
+        //public string Skilltricks { get; set; }
+
+
+    }
 
 
 }
