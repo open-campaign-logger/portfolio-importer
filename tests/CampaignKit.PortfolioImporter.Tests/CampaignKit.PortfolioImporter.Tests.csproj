@@ -27,6 +27,55 @@
 
   <ItemGroup>
     <EmbeddedResource Include="..\..\data\TestData.por" Link="Properties\TestData.por" />
+	<EmbeddedResource Include="..\..\data\HeroLab5e\TestData_5e_001.por" Link="Properties\HeroLab5e\TestData_5e_001.por" />
+	<EmbeddedResource Include="..\..\data\HeroLab5e\TestData_5e_002.por" Link="Properties\HeroLab5e\TestData_5e_002.por" />
+	<EmbeddedResource Include="..\..\data\HeroLab5e\TestData_5e_003.por" Link="Properties\HeroLab5e\TestData_5e_003.por" />
+	<EmbeddedResource Include="..\..\data\HeroLab5e\TestData_5e_004.por" Link="Properties\HeroLab5e\TestData_5e_004.por" />
+	<EmbeddedResource Include="..\..\data\HeroLab5e\TestData_5e_005.por" Link="Properties\HeroLab5e\TestData_5e_005.por" />
+	<EmbeddedResource Include="..\..\data\HeroLab5e\TestData_5e_006.por" Link="Properties\HeroLab5e\TestData_5e_006.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_001.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_001.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_002.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_002.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_003.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_003.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_004.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_004.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_005.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_005.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_006.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_006.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_007.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_007.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_008.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_008.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_009.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_009.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_010.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_010.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_011.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_011.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_012.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_012.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_013.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_013.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_014.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_014.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_015.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_015.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_016.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_016.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_017.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_017.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_018.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_018.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_019.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_019.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_020.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_020.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_021.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_021.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_022.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_022.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_023.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_023.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_024.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_024.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_025.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_025.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_026.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_026.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_027.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_027.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_028.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_028.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_029.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_029.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_030.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_030.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_031.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_031.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_032.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_032.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_033.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_033.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_034.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_034.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_035.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_035.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_036.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_036.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_037.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_037.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_038.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_038.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_039.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_039.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_040.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_040.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_041.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_041.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_042.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_042.por" />
+	<EmbeddedResource Include="..\..\data\HeroLabPathfinder\TestData_Pathfinder_043.por" Link="Properties\HeroLabPathfinder\TestData_Pathfinder_043.por" />
   </ItemGroup>
 
   <ItemGroup>

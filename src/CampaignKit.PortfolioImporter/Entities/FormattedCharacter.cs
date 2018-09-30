@@ -14,20 +14,37 @@
 
 namespace CampaignKit.PortfolioImporter.Entities
 {
-    /// <summary>
-    ///     Class FormattedCharacter.
-    /// </summary>
-    /// <seealso cref="Character" />
-    public class FormattedCharacter : Character
+
+	/// <summary>
+	///     Class FormattedCharacter.
+	/// </summary>
+	/// <seealso cref="Character" />
+	public class FormattedCharacter : Character
     {
-        #region Properties
+		
+		#region Properties
 
-        /// <summary>
-        ///     Gets or sets the formatted text.
-        /// </summary>
-        /// <value>The formatted text.</value>
-        public string FormattedText { get; set; }
+		/// <summary>
+		///     Gets or sets the formatted text.
+		/// </summary>
+		/// <value>The formatted text.</value>
+		public string FormattedText { get; set; }
 
-        #endregion
-    }
+		public override string getCompactStatBlockFormat()
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public override string getDefaultFormat()
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public override string getStatBlockFormat()
+		{
+			throw new System.NotImplementedException();
+		}
+
+		#endregion
+	}
 }
