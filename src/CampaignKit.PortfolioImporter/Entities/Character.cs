@@ -12,15 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using System.Collections.Generic;
 
 namespace CampaignKit.PortfolioImporter.Entities
 {
-    /// <summary>
-    ///     Class Character.
-    /// </summary>
-    public abstract class Character
+	/// <summary>
+	///     Class Character.
+	/// </summary>
+	public abstract class Character
     {
+
         #region Properties
 
         /// <summary>
@@ -53,12 +53,16 @@ namespace CampaignKit.PortfolioImporter.Entities
         public string Game { get; set; }
 
 		#endregion
-		
-		public abstract string getStatBlockFormat();
 
-		public abstract string getCompactStatBlockFormat();
+		#region Abstract Members
 
+		/// <summary>
+		/// Return the character formatted in the system default format.
+		/// </summary>
+		/// <returns></returns>
 		public abstract string getDefaultFormat();
+
+		#endregion
 
 	}
 }

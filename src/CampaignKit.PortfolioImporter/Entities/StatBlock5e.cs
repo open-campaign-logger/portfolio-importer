@@ -1,15 +1,9 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Xml.Serialization;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.IO;
-using System.Text;
-using CampaignKit.PortfolioImporter.Entities;
 
 namespace CampaignKit.PortfolioImporter.Entities
 {
-    [XmlRoot(ElementName = "creature-heading")]
+	[XmlRoot(ElementName = "creature-heading")]
     public class Creatureheading
     {
         public Creatureheading()

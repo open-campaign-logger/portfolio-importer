@@ -12,6 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System.IO;
+using System.Linq;
+using System.Text;
+
 namespace CampaignKit.PortfolioImporter.Entities
 {
 
@@ -30,21 +34,60 @@ namespace CampaignKit.PortfolioImporter.Entities
 		/// <value>The formatted text.</value>
 		public string FormattedText { get; set; }
 
-		public override string getCompactStatBlockFormat()
-		{
-			throw new System.NotImplementedException();
-		}
+		#endregion
+
+		#region Formatting Code
 
 		public override string getDefaultFormat()
 		{
-			throw new System.NotImplementedException();
-		}
 
-		public override string getStatBlockFormat()
-		{
-			throw new System.NotImplementedException();
+			string[] ignoreList = { "<html", "<head", "<meta", "</head", "<body", "</body", "</html", "<p>Hero Lab", "System Reference Document", "Pathfinder®"};
+			StringReader sr = new StringReader(Html);
+			StringBuilder sb = new StringBuilder();
+			string nextLine = string.Empty;
+			bool ignoreLine = false;
+
+			while (true)
+			{
+				nextLine = sr.ReadLine();
+
+				if (nextLine != null)
+				{
+					ignoreLine = ignoreList.Any(s => nextLine.Contains(s));
+					if (ignoreLine)
+					{
+						continue;
+					} else
+					{
+						nextLine = nextLine.Replace("&nbsp;", "\t");
+						nextLine = nextLine.Replace("<b><i>", "{bi|");
+						nextLine = nextLine.Replace("<b>", "{b|");
+						nextLine = nextLine.Replace("<i>", "{i|");
+						nextLine = nextLine.Replace("<sup>", "{/|");
+						nextLine = nextLine.Replace("<br/>", "");
+						nextLine = nextLine.Replace("<hr/>", "---\r\n");
+						nextLine = nextLine.Replace("</b></i>", "}");
+						nextLine = nextLine.Replace("</b>", "}");
+						nextLine = nextLine.Replace("</i>", "}");
+						nextLine = nextLine.Replace("</sup>", "}");
+					}
+					if  (!string.IsNullOrWhiteSpace(nextLine)){
+						sb.AppendLine(nextLine);
+					}					
+
+				}
+				else
+				{
+					break;
+				}
+
+			}
+
+			return sb.ToString();
+
 		}
 
 		#endregion
+
 	}
 }

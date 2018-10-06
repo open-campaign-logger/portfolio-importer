@@ -80,12 +80,6 @@ namespace CampaignKit.PortfolioImporter.Services
 
             switch (option)
             {
-                case FormatOptions.StatBlock:
-					formattedCharacter.FormattedText = character.getStatBlockFormat();
-					break;
-				case FormatOptions.StatBlockCompact:
-					formattedCharacter.FormattedText =  character.getCompactStatBlockFormat();
-					break;
 				case FormatOptions.Text:
 					formattedCharacter.FormattedText = character.Text;
 					break;

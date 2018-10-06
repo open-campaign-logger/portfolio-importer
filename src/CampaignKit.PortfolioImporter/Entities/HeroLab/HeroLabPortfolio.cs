@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
-using System.Xml;
 using System.Xml.Serialization;
 
 namespace CampaignKit.PortfolioImporter.Entities.HeroLab
@@ -31,10 +30,12 @@ namespace CampaignKit.PortfolioImporter.Entities.HeroLab
 				// Process each of the character summaries found in the portfolio
 				foreach (CharacterSummary summary in rootDocument.CharacterSummaries.CharacterSummary)
 				{
+					// set the character name
+					string name = summary.Name;
 
 					string text = string.Empty;
 					string xml = string.Empty;
-					string html = string.Empty;
+					string html = string.Empty;					
 					string fileContents = string.Empty;
 
 					// Cycle through the statbock and retrieve the text, html and html data.
@@ -69,8 +70,10 @@ namespace CampaignKit.PortfolioImporter.Entities.HeroLab
 						Game = rootDocument.Game.Name,
 						Text = text,
 						Xml = xml,
-						Html = html
+						Html = html,
+						Name = name
 					};
+
 					Characters.Add(character);
 
 				}

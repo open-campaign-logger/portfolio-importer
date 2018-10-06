@@ -14,8 +14,10 @@
 using CampaignKit.PortfolioImporter.Entities;
 using CampaignKit.PortfolioImporter.Entities.HeroLab;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.IO;
 using System.IO.Compression;
 using System.Reflection;
+using System;
 
 namespace CampaignKit.PortfolioImporter.Tests
 {
@@ -36,6 +38,11 @@ namespace CampaignKit.PortfolioImporter.Tests
 			var assembly = typeof(ConversionTests).GetTypeInfo().Assembly;
 			string[] entries = assembly.GetManifestResourceNames();
 
+			// Set the output directory for the generated content.
+			string mydocpath = Path.Combine(
+				Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+				"campaign-portfolio-output");
+
 			foreach (string entry in entries)
 			{
 				if (entry.EndsWith(".por"))
@@ -48,6 +55,25 @@ namespace CampaignKit.PortfolioImporter.Tests
 							HeroLabPortfolio por = new HeroLabPortfolio(archive);
 							Assert.IsTrue(por.Characters.Count > 0);
 
+							DirectoryInfo di = new DirectoryInfo(mydocpath);
+							if (!di.Exists)
+							{
+								di.Create();
+							}
+
+							foreach (Character hero in por.Characters)
+							{
+								string invalid = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
+
+								foreach (char c in invalid)
+								{
+									hero.Name = hero.Name.Replace(c.ToString(), "");
+								}
+
+								File.WriteAllText(Path.Combine(mydocpath, hero.Name + ".txt"), hero.getDefaultFormat());
+
+							}							
+							
 						}
 					}
 				}
