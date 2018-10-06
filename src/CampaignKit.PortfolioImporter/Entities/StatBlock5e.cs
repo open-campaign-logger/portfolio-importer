@@ -5,8 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.IO;
 using System.Text;
+using CampaignKit.PortfolioImporter.Entities;
 
-namespace CampaignKit.PortfolioImporter.Entities.HeroLab
+namespace CampaignKit.PortfolioImporter.Entities
 {
     [XmlRoot(ElementName = "creature-heading")]
     public class Creatureheading
@@ -139,104 +140,6 @@ namespace CampaignKit.PortfolioImporter.Entities.HeroLab
         public List<Propertyblock> Propertyblock { get; set; }
         [XmlElement(ElementName = "h3")]
         public string H3 { get; set; }
-
-        public Statblock5e()
-        {
-        }
-
-        /// <summary>
-        /// This constructor will accept a HeroLabCharacter and populate elements 
-        /// in the statblock accordingly.
-        /// </summary>
-        /// <param name="character"></param>
-        public Statblock5e(HeroLabCharacter character)
-        {
-            string val;
-
-            // Creature Heading
-            this.Creatureheading 
-                = new Creatureheading(character.getCharacterName(),
-                    character.getCharacterType(),
-                    character.getCharacterAlignment());
-
-            // Top Stats
-            this.Topstats 
-                = new Topstats(character.getArmorClass(), 
-                    character.getHitPoints() + " (" + character.getHitDice() + ")",
-                    character.getAlignment());
-
-            // Abilities
-            this.Topstats.Abilitiesblock
-                = new Abilitiesblock(character.getSTR(), character.getSTRBonus(),
-                    character.getDEX(), character.getDEXBonus(),
-                    character.getCON(), character.getCONBonus(),
-                    character.getINT(), character.getINTBonus(),
-                    character.getWIS(), character.getWISBonus(),
-                    character.getCHA(), character.getCHABonus());
-            
-            // Immunities
-            val = string.Join(", ", character.getImmunities().ToArray()).Trim();
-            if (!string.IsNullOrEmpty(val)) { this.Topstats.Propertyline.Add(new Propertyline("Immunities", val)); }
-
-            // Resistances
-            val = string.Join(", ", character.getResistances().ToArray()).Trim();
-            if (!string.IsNullOrEmpty(val)) { this.Topstats.Propertyline.Add(new Propertyline("Resistances", val)); }
-
-            // Weaknesses
-            val = string.Join(", ", character.getWeaknesses().ToArray()).Trim();
-            if (!string.IsNullOrEmpty(val)) { this.Topstats.Propertyline.Add(new Propertyline("Weaknesses", val)); }
-
-            // Saves
-            List<string> saves = new List<string>();
-            foreach (string key in character.getSaves().Keys)
-            {
-                character.getSaves().TryGetValue(key, out val);
-                saves.Add(key + " (" + val + ")");
-            }
-            val = string.Join(" ", saves.ToArray()).Trim();
-            if (!string.IsNullOrEmpty(val)) { this.Topstats.Propertyline.Add(new Propertyline("Saves", val)); }
-            
-            // Senses
-            val = string.Join(", ", character.getSenses().ToArray()).Trim();
-            if (!string.IsNullOrEmpty(val)) { this.Topstats.Propertyline.Add(new Propertyline("Senses", val)); }
-
-            // Languages
-            val = string.Join(", ", character.getLanguages().ToArray());
-            if (!string.IsNullOrEmpty(val)) { this.Topstats.Propertyline.Add(new Propertyline("Languages", val));}
-
-            // Challenge Rating
-            if (!string.IsNullOrEmpty(character.getCR()))
-            {
-                this.Topstats.Propertyline.Add(new Propertyline("Challenge", character.getCR() + "(" + character.getXPAward() + ")"));
-            }            
-
-            // Actions
-            this.H3 = "Actions";
-            this.Propertyblock = new List<Propertyblock>();
-
-            // Special
-            foreach (string key in character.getSpecial().Keys)
-            {
-                character.getSpecial().TryGetValue(key, out val);                
-                this.Propertyblock.Add(new Propertyblock(key, val));
-            }
-
-            // Weapons
-            
-            foreach (Weapon wp in character.getWeapons())
-            {
-                StringBuilder sb = new StringBuilder();
-                sb.Append(wp.Name);
-                sb.Append(": ");
-                sb.Append(wp.Attack);
-                sb.Append(" to hit, Hit: ");
-                sb.Append(wp.Damage);
-
-                this.Propertyblock.Add(new Propertyblock(wp.Name, sb.ToString()));
-
-            }
-                        
-        }
 
     }
 

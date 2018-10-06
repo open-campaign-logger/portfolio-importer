@@ -53,7 +53,7 @@ namespace CampaignKit.PortfolioImporter.Entities
         public string Game { get; set; }
 
 		#endregion
-
+		
 		public abstract string getStatBlockFormat();
 
 		public abstract string getCompactStatBlockFormat();
