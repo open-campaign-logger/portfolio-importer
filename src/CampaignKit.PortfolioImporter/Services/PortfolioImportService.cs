@@ -12,20 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using CampaignKit.PortfolioImporter.Entities;
+using CampaignKit.PortfolioImporter.Entities.HeroLab;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
-using System.Xml.XPath;
-
-using CampaignKit.PortfolioImporter.Entities;
-using CampaignKit.PortfolioImporter.Extensions;
 
 namespace CampaignKit.PortfolioImporter.Services
 {
-    /// <summary>
-    ///     Interface IPortfolioImportService
-    /// </summary>
-    public interface IPortfolioImportService
+	/// <summary>
+	///     Interface IPortfolioImportService
+	/// </summary>
+	public interface IPortfolioImportService
     {
         #region Methods
 
@@ -56,52 +54,8 @@ namespace CampaignKit.PortfolioImporter.Services
         {
             using (var archive = new ZipArchive(stream))
             {
-                var index = archive.GetEntry("index.xml");
-                using (var indexStream = index.Open())
-                {
-                    var indexDocument = new XPathDocument(indexStream);
-                    var navigator = indexDocument.CreateNavigator();
-                    var game = navigator.Get("/document/game/@name");
-                    
-                    var characters = navigator.Select("/document/characters/character");
-                    foreach (XPathNavigator character in characters)
-                    {
-                        var name = character.GetAttribute("name", "");
-                        var text = default(string);
-                        var html = default(string);
-                        var xml = default(string);
-
-                        var statblocks = character.Select("./statblocks/statblock");
-                        foreach (XPathNavigator statblock in statblocks)
-                        {
-                            var format = statblock.GetAttribute("format", "");
-                            var folder = statblock.GetAttribute("folder", "");
-                            var filename = statblock.GetAttribute("filename", "");
-
-                            var content = archive.GetEntry($"{folder}/{filename}");
-                            using (var contentStream = content.Open())
-                            using (var contentReader = new StreamReader(contentStream))
-                            {
-                                switch (format)
-                                {
-                                    case "text":
-                                        text = contentReader.ReadToEnd();
-                                        break;
-
-                                    case "html":
-                                        html = contentReader.ReadToEnd();
-                                        break;
-
-                                    case "xml":
-                                        xml = contentReader.ReadToEnd();
-                                        break;
-                                }
-                            }
-                        }
-
-                        yield return new Character { Name = name, Text = text, Html = html, Xml = xml, Game = game };
-                    }
-                }
+				HeroLabPortfolio por = new HeroLabPortfolio(archive);
+				return por.Characters;
             }
         }
 

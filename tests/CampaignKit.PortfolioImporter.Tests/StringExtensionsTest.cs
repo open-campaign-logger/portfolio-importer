@@ -18,10 +18,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CampaignKit.PortfolioImporter.Tests
 {
-    /// <summary>
-    ///     Class StringExtensionsTest.
-    /// </summary>
-    [TestClass]
+	/// <summary>
+	///     Class StringExtensionsTest.
+	/// </summary>
+	[TestClass]
     public class StringExtensionsTest
     {
         #region Methods

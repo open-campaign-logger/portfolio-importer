@@ -1,0 +1,38 @@
+﻿Utilities
+=========
+Conversion utility for json data to dotnet class
+http://json2csharp.com/#
+
+Conversion utility from XML data to JSON data
+https://www.freeformatter.com/xml-to-json-converter.html
+
+Conversion utililty from XML data to dotnet class
+https://xmltocsharp.azurewebsites.net/
+
+5e SRD Data
+===========
+JSON Database for 5e Monsters
+https://github.com/adrpadua/5e-database
+
+5e DnDBeyond Data
+=================
+DnDBeyond Scraper to JSON
+https://gist.github.com/tkfu/bc5dc2c6cee4d1e582a3d369c3077bb5
+
+DnDBeyond to Monster Card Generator
+https://gist.github.com/tkfu/68c5614f19e0aaae447f38b4cb4b795d
+https://crobi.github.io/rpg-cards/generator/generate.html
+
+DnDBeyond Data to Monster Cards
+https://gist.github.com/tkfu/5f055332842c864f403130edd369577c
+
+DnDBeyond Data to JSON
+https://gist.github.com/tkfu/9819e4ac6d529e225e9fc58b358c3479
+
+Pathfinder SRD Data
+===================
+Extracted SRD Data
+https://github.com/devonjones/PSRD-Data
+
+
+
