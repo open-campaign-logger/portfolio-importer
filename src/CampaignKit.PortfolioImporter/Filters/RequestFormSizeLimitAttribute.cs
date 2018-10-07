@@ -22,10 +22,11 @@ namespace CampaignKit.PortfolioImporter.Filters
     /// <summary>
     ///     Class RequestFormSizeLimitAttribute.
     /// </summary>
-    /// <seealso cref="System.Attribute" />
-    /// <seealso cref="Microsoft.AspNetCore.Mvc.Filters.IAuthorizationFilter" />
-    /// <seealso cref="Microsoft.AspNetCore.Mvc.Filters.IOrderedFilter" />
+    /// <seealso cref="T:System.Attribute" />
+    /// <seealso cref="T:Microsoft.AspNetCore.Mvc.Filters.IAuthorizationFilter" />
+    /// <seealso cref="T:Microsoft.AspNetCore.Mvc.Filters.IOrderedFilter" />
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
+    // ReSharper disable once UnusedMember.Global
     public class RequestFormSizeLimitAttribute : Attribute, IAuthorizationFilter, IOrderedFilter
     {
         #region Fields
@@ -36,8 +37,10 @@ namespace CampaignKit.PortfolioImporter.Filters
 
         #region Constructors
 
+        /// <inheritdoc />
         /// <summary>
-        ///     Initializes a new instance of the <see cref="RequestFormSizeLimitAttribute" /> class.
+        ///     Initializes a new instance of the
+        ///     <see cref="T:CampaignKit.PortfolioImporter.Filters.RequestFormSizeLimitAttribute" /> class.
         /// </summary>
         /// <param name="valueCountLimit">The value count limit.</param>
         public RequestFormSizeLimitAttribute(int valueCountLimit)
@@ -52,6 +55,7 @@ namespace CampaignKit.PortfolioImporter.Filters
 
         #region Properties
 
+        /// <inheritdoc />
         /// <summary>
         ///     Gets the order value for determining the order of execution of filters. Filters execute in
         ///     ascending numeric value of the <see cref="P:Microsoft.AspNetCore.Mvc.Filters.IOrderedFilter.Order" /> property.
@@ -63,6 +67,7 @@ namespace CampaignKit.PortfolioImporter.Filters
 
         #region Implementations
 
+        /// <inheritdoc />
         /// <summary>
         ///     Called early in the filter pipeline to confirm request is authorized.
         /// </summary>

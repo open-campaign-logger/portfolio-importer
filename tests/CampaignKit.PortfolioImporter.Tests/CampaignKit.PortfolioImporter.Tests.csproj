@@ -6,7 +6,7 @@
     <AssemblyTitle>CampaignKit Hero Lab File Handler Tests</AssemblyTitle>
     <NeutralLanguage>en-US</NeutralLanguage>
     <VersionPrefix>2.17.3</VersionPrefix>
-    <Authors>Jochen Linnemann</Authors>
+    <Authors>Jochen Linnemann, talktocory</Authors>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <AssemblyName>CampaignKit.PortfolioImporter.Tests</AssemblyName>
     <PackageId>CampaignKit.PortfolioImporter.Tests</PackageId>
@@ -23,6 +23,8 @@
     <RepositoryType>git</RepositoryType>
 
     <IsPackable>false</IsPackable>
+
+    <Version>3.18.10</Version>
   </PropertyGroup>
 
   <ItemGroup>

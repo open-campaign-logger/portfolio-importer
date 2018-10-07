@@ -28,7 +28,7 @@ namespace CampaignKit.PortfolioImporter.Extensions
 
         #region Constants
 
-        public const string Dash = "—";
+        private const string Dash = "—";
 
         #endregion
 
@@ -42,6 +42,7 @@ namespace CampaignKit.PortfolioImporter.Extensions
         /// <param name="sb">The sb.</param>
         /// <param name="s">The s.</param>
         /// <returns>StringBuilder.</returns>
+        // ReSharper disable once UnusedMember.Global
         public static StringBuilder AppendLineIfNotDash(this StringBuilder sb, string s)
         {
             if (s != null && !s.EndsWith(Dash))
@@ -81,17 +82,19 @@ namespace CampaignKit.PortfolioImporter.Extensions
         /// </summary>
         /// <param name="s">The s.</param>
         /// <returns>System.String.</returns>
+        // ReSharper disable once UnusedMember.Global
         public static string EnsureSigned(this string s)
         {
             return s.StartsWith("-") || s.StartsWith("+") ? s : $"+{s}";
         }
 
         /// <summary>
-        ///     Returns the specfied string of not null or white space,
+        ///     Returns the specified string of not null or white space,
         ///     a dash (-) otherwise.
         /// </summary>
         /// <param name="s">The s.</param>
         /// <returns>System.String.</returns>
+        // ReSharper disable once UnusedMember.Global
         public static string OrDash(this string s)
         {
             if (string.IsNullOrWhiteSpace(s)) return Dash;
@@ -106,6 +109,7 @@ namespace CampaignKit.PortfolioImporter.Extensions
         /// <param name="index">The index.</param>
         /// <param name="separators">The separators.</param>
         /// <returns>System.String.</returns>
+        // ReSharper disable once UnusedMember.Global
         public static string SplitTrim(this string s, int index, params char[] separators)
         {
             var result = s.Split(separators).Select(part => part.Trim()).ToList();
@@ -117,10 +121,10 @@ namespace CampaignKit.PortfolioImporter.Extensions
         /// </summary>
         /// <param name="s">The s.</param>
         /// <returns>System.String.</returns>
+        // ReSharper disable once UnusedMember.Global
         public static string ToChallengeRating(this string s)
         {
-            int level;
-            if (!int.TryParse(s, out level)) return "?";
+            if (!int.TryParse(s, out var level)) return "?";
 
             level -= 1;
             if (level > 0) return level.ToString();
@@ -134,6 +138,7 @@ namespace CampaignKit.PortfolioImporter.Extensions
         /// </summary>
         /// <param name="s">The s.</param>
         /// <returns>System.String.</returns>
+        // ReSharper disable once UnusedMember.Global
         public static string ToInitials(this string s)
         {
             var initials = new Regex(@"(\b[a-zA-Z])[a-zA-Z]* ?");
@@ -145,6 +150,7 @@ namespace CampaignKit.PortfolioImporter.Extensions
         /// </summary>
         /// <param name="s">The s.</param>
         /// <returns>System.String.</returns>
+        // ReSharper disable once UnusedMember.Global
         public static string ToSentenceStart(this string s)
         {
             var sentenceStart = new Regex(@"(\s*)(\p{L})(.*)");
@@ -158,6 +164,7 @@ namespace CampaignKit.PortfolioImporter.Extensions
         /// <param name="s">The s.</param>
         /// <param name="limit">The limit.</param>
         /// <returns>System.String.</returns>
+        // ReSharper disable once UnusedMember.Global
         public static string ToShortened(this string s, int limit)
         {
             if (s == null) return null;
@@ -173,6 +180,7 @@ namespace CampaignKit.PortfolioImporter.Extensions
 
                 s = $"{s}...";
             }
+
             return s;
         }
 
@@ -181,6 +189,7 @@ namespace CampaignKit.PortfolioImporter.Extensions
         /// </summary>
         /// <param name="s">The s.</param>
         /// <returns>System.String.</returns>
+        // ReSharper disable once UnusedMember.Global
         public static string ToTitleCase(this string s)
         {
             var titleCase = new Regex(@"(\s*)([\p{L}0-9])([\p{L}0-9]*)(\s*)");

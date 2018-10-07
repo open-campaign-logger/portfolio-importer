@@ -12,12 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using CampaignKit.PortfolioImporter.ApiModels;
-using CampaignKit.PortfolioImporter.Controllers;
-using CampaignKit.PortfolioImporter.Services;
-using CampaignKit.PortfolioImporter.Tests.IntegrationTests;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Linq;
@@ -25,12 +19,21 @@ using System.Net.Http;
 using System.Reflection;
 using System.Text;
 
+using CampaignKit.PortfolioImporter.ApiModels;
+using CampaignKit.PortfolioImporter.Controllers;
+using CampaignKit.PortfolioImporter.Services;
+using CampaignKit.PortfolioImporter.Tests.IntegrationTests;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+using Newtonsoft.Json;
+
 namespace CampaignKit.PortfolioImporter.Tests
 {
-	/// <summary>
-	///     Class ConversionControllerTest.
-	/// </summary>
-	[TestClass]
+    /// <summary>
+    ///     Class ConversionControllerTest.
+    /// </summary>
+    [TestClass]
     public class ConversionControllerTest
     {
         #region Fields

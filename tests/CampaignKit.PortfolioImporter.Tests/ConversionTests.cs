@@ -11,75 +11,64 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-using CampaignKit.PortfolioImporter.Entities;
-using CampaignKit.PortfolioImporter.Entities.HeroLab;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+using System;
 using System.IO;
 using System.IO.Compression;
 using System.Reflection;
-using System;
+
+using CampaignKit.PortfolioImporter.Entities.HeroLab;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CampaignKit.PortfolioImporter.Tests
 {
-	/// <summary>
-	///     Class StringExtensionsTest.
-	/// </summary>
-	[TestClass]
+    /// <summary>
+    ///     Class StringExtensionsTest.
+    /// </summary>
+    [TestClass]
     public class ConversionTests
     {
-		#region Methods
+        #region Methods
 
-		/// <summary>
-		///     Tests the dasherization of a string.
-		/// </summary>
-		[TestMethod]
+        /// <summary>
+        ///     Tests the dasherization of a string.
+        /// </summary>
+        [TestMethod]
         public void TestPortfolioFileParsing()
-		{
-			var assembly = typeof(ConversionTests).GetTypeInfo().Assembly;
-			string[] entries = assembly.GetManifestResourceNames();
+        {
+            var assembly = typeof(ConversionTests).GetTypeInfo().Assembly;
+            var entries = assembly.GetManifestResourceNames();
 
-			// Set the output directory for the generated content.
-			string mydocpath = Path.Combine(
-				Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-				"campaign-portfolio-output");
+            // Set the output directory for the generated content.
+            var myDocPath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                "campaign-portfolio-output");
 
-			foreach (string entry in entries)
-			{
-				if (entry.EndsWith(".por"))
-				{
-					using (var resourceStream = assembly.GetManifestResourceStream(entry))
-					{
-						using (ZipArchive archive = new ZipArchive(resourceStream))
-						{
+            foreach (var entry in entries)
+                if (entry.EndsWith(".por"))
+                    using (var resourceStream = assembly.GetManifestResourceStream(entry))
+                    {
+                        using (var archive = new ZipArchive(resourceStream))
+                        {
+                            var por = new HeroLabPortfolio(archive);
+                            Assert.IsTrue(por.Characters.Count > 0);
 
-							HeroLabPortfolio por = new HeroLabPortfolio(archive);
-							Assert.IsTrue(por.Characters.Count > 0);
+                            var di = new DirectoryInfo(myDocPath);
+                            if (!di.Exists) di.Create();
 
-							DirectoryInfo di = new DirectoryInfo(mydocpath);
-							if (!di.Exists)
-							{
-								di.Create();
-							}
+                            foreach (var hero in por.Characters)
+                            {
+                                var invalid = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
 
-							foreach (Character hero in por.Characters)
-							{
-								string invalid = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
+                                foreach (var c in invalid) hero.Name = hero.Name.Replace(c.ToString(), "");
 
-								foreach (char c in invalid)
-								{
-									hero.Name = hero.Name.Replace(c.ToString(), "");
-								}
+                                File.WriteAllText(Path.Combine(myDocPath, hero.Name + ".txt"), hero.GetDefaultFormat());
+                            }
+                        }
+                    }
+        }
 
-								File.WriteAllText(Path.Combine(mydocpath, hero.Name + ".txt"), hero.getDefaultFormat());
-
-							}							
-							
-						}
-					}
-				}
-			}
-		}
-		
-		#endregion
-	}
+        #endregion
+    }
 }

@@ -3,40 +3,50 @@ using System.Xml.Serialization;
 
 namespace CampaignKit.PortfolioImporter.Entities.HeroLab
 {
+    /// <inheritdoc />
+    /// <summary>
+    ///     Class HeroLabCharacter.
+    /// </summary>
+    /// <seealso cref="T:CampaignKit.PortfolioImporter.Entities.FormattedCharacter" />
+    public class HeroLabCharacter : FormattedCharacter
+    {
+        #region Fields
 
-	public class HeroLabCharacter : FormattedCharacter
-	{
+        private HeroLabCharacterRootDocument _rootDocument;
 
-		#region Character Properties
+        #endregion
 
-		private HeroLabCharacterRootDocument _rootDocument;
+        #region Properties
 
-		public HeroLabCharacterRootDocument RootDocument
-		{
-			get
-			{
-				if (_rootDocument == null)
-				{
-					XmlSerializer serializer = new XmlSerializer(typeof(HeroLabCharacterRootDocument));
-					using (TextReader reader = new StringReader(Xml))
-					{
-						_rootDocument = (HeroLabCharacterRootDocument)serializer.Deserialize(reader);
-					}
-				}
-				return _rootDocument;
-			}
-		}
+        /// <summary>
+        ///     Gets the detail document.
+        /// </summary>
+        /// <value>The detail document.</value>
+        // ReSharper disable once UnusedMember.Global
+        public CharacterDetail DetailDocument => RootDocument.Public.Character;
 
-		public CharacterDetail DetailDocument
-		{
-			get
-			{
-				return RootDocument.Public.Character;
-			}
-		}
+        /// <summary>
+        ///     Gets the root document.
+        /// </summary>
+        /// <value>The root document.</value>
+        // ReSharper disable once MemberCanBePrivate.Global
+        public HeroLabCharacterRootDocument RootDocument
+        {
+            get
+            {
+                if (_rootDocument != null)
+                    return _rootDocument;
 
-		#endregion
+                var serializer = new XmlSerializer(typeof(HeroLabCharacterRootDocument));
+                using (TextReader reader = new StringReader(Xml))
+                {
+                    _rootDocument = (HeroLabCharacterRootDocument) serializer.Deserialize(reader);
+                }
 
-	}
+                return _rootDocument;
+            }
+        }
 
+        #endregion
+    }
 }
