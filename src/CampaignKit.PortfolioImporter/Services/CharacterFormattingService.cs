@@ -91,7 +91,7 @@ namespace CampaignKit.PortfolioImporter.Services
                     formattedCharacter.FormattedText = character.Xml;
                     break;
                 default:
-                    formattedCharacter.FormattedText = character.getDefaultFormat();
+                    formattedCharacter.FormattedText = character.GetDefaultFormat();
                     break;
             }
 

@@ -1,8 +1,10 @@
 ﻿namespace CampaignKit.PortfolioImporter.Entities
 {
-
-	public class DefaultCharacterFormatter
-	{
-	}
-
+    // ReSharper disable once UnusedMember.Global
+    /// <summary>
+    ///     Class DefaultCharacterFormatter.
+    /// </summary>
+    public class DefaultCharacterFormatter
+    {
+    }
 }

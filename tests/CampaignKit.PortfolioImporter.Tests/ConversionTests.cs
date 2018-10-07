@@ -63,7 +63,7 @@ namespace CampaignKit.PortfolioImporter.Tests
 
                                 foreach (var c in invalid) hero.Name = hero.Name.Replace(c.ToString(), "");
 
-                                File.WriteAllText(Path.Combine(myDocPath, hero.Name + ".txt"), hero.getDefaultFormat());
+                                File.WriteAllText(Path.Combine(myDocPath, hero.Name + ".txt"), hero.GetDefaultFormat());
                             }
                         }
                     }
