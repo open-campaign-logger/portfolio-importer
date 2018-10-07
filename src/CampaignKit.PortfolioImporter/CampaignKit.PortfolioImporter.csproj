@@ -6,7 +6,7 @@
     <AssemblyTitle>CampaignKit Hero Lab File Handler</AssemblyTitle>
     <NeutralLanguage>en-US</NeutralLanguage>
     <VersionPrefix>2.17.3</VersionPrefix>
-    <Authors>Jochen Linnemann</Authors>
+    <Authors>Jochen Linnemann, talktocory</Authors>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <PreserveCompilationContext>true</PreserveCompilationContext>
     <AssemblyName>CampaignKit.PortfolioImporter</AssemblyName>
@@ -14,13 +14,14 @@
     <PackageId>CampaignKit.PortfolioImporter</PackageId>
     <RuntimeFrameworkVersion>2.1.0</RuntimeFrameworkVersion>
     <PackageTargetFallback>$(PackageTargetFallback);dotnet5.6;portable-net45+win8</PackageTargetFallback>
-    <Company>Jochen Linnemann IT-Service</Company>
+    <Company>Jochen Linnemann - IT-Service</Company>
     <RootNamespace>CampaignKit.PortfolioImporter</RootNamespace>
     <Product>CampaignKit Portfolio Importer</Product>
     <PackageLicenseUrl>https://github.com/open-campaign-logger/portfolio-importer/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://campaign-logger.com/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/open-campaign-logger/portfolio-importer</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <Version>3.18.10</Version>
   </PropertyGroup>
 
   <ItemGroup>
