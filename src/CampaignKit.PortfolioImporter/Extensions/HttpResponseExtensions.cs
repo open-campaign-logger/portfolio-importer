@@ -19,6 +19,7 @@ namespace CampaignKit.PortfolioImporter.Extensions
     /// <summary>
     ///     Class HttpResponseExtensions.
     /// </summary>
+    // ReSharper disable once UnusedMember.Global
     public static class HttpResponseExtensions
     {
         #region Methods

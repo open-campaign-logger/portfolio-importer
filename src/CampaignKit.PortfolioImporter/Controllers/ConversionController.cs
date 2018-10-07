@@ -26,10 +26,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CampaignKit.PortfolioImporter.Controllers
 {
+    /// <inheritdoc />
     /// <summary>
     ///     Class ConversionController.
     /// </summary>
-    /// <seealso cref="Microsoft.AspNetCore.Mvc.Controller" />
+    /// <seealso cref="T:Microsoft.AspNetCore.Mvc.Controller" />
     [Route("api/[controller]")]
     [EnableCors("CorsPolicy")]
     public class ConversionController : Controller

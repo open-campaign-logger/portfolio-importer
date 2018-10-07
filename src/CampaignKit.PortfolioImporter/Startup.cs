@@ -34,6 +34,7 @@ namespace CampaignKit.PortfolioImporter
         /// <param name="app">The application.</param>
         /// <param name="env">The env.</param>
         /// <param name="loggerFactory">The logger factory.</param>
+        // ReSharper disable once UnusedMember.Global
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,11 +46,6 @@ namespace CampaignKit.PortfolioImporter
 
             app.UseFileServer();
             app.UseMvcWithDefaultRoute();
-
-            //app.Run(async (context) =>
-            //{
-            //    await context.Response.WriteAsync("Hello World!");
-            //});
         }
 
         /// <summary>

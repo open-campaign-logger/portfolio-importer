@@ -21,7 +21,7 @@ namespace CampaignKit.PortfolioImporter
     /// <summary>
     ///     Class Program.
     /// </summary>
-    public class Program
+    public static class Program
     {
         #region Methods
 
