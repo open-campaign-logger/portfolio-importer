@@ -12,18 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using CampaignKit.PortfolioImporter.Entities;
-using CampaignKit.PortfolioImporter.Entities.HeroLab;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 
+using CampaignKit.PortfolioImporter.Entities;
+using CampaignKit.PortfolioImporter.Entities.HeroLab;
+
 namespace CampaignKit.PortfolioImporter.Services
 {
-	/// <summary>
-	///     Interface IPortfolioImportService
-	/// </summary>
-	public interface IPortfolioImportService
+    /// <summary>
+    ///     Interface IPortfolioImportService
+    /// </summary>
+    public interface IPortfolioImportService
     {
         #region Methods
 
@@ -45,6 +46,7 @@ namespace CampaignKit.PortfolioImporter.Services
     {
         #region Implementations
 
+        /// <inheritdoc />
         /// <summary>
         ///     Imports the portfolio.
         /// </summary>
@@ -54,8 +56,8 @@ namespace CampaignKit.PortfolioImporter.Services
         {
             using (var archive = new ZipArchive(stream))
             {
-				HeroLabPortfolio por = new HeroLabPortfolio(archive);
-				return por.Characters;
+                var por = new HeroLabPortfolio(archive);
+                return por.Characters;
             }
         }
 

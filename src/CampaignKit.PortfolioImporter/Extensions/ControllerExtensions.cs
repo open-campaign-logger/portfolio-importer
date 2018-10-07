@@ -42,14 +42,16 @@ namespace CampaignKit.PortfolioImporter.Extensions
 
         #region Nested Types
 
+        /// <inheritdoc />
         /// <summary>
         ///     Class DasherizedPropertyNamesContractResolver.
         /// </summary>
-        /// <seealso cref="Newtonsoft.Json.Serialization.DefaultContractResolver" />
+        /// <seealso cref="T:Newtonsoft.Json.Serialization.DefaultContractResolver" />
         private class DasherizedPropertyNamesContractResolver : DefaultContractResolver
         {
             #region Methods
 
+            /// <inheritdoc />
             /// <summary>
             ///     Resolves the name of the property.
             /// </summary>

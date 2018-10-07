@@ -21,6 +21,7 @@ namespace CampaignKit.PortfolioImporter.Extensions
     /// <summary>
     ///     Class XPathNavigatorExtension.
     /// </summary>
+    // ReSharper disable once UnusedMember.Global
     public static class XPathNavigatorExtensions
     {
         #region Methods
@@ -31,11 +32,12 @@ namespace CampaignKit.PortfolioImporter.Extensions
         /// <param name="nav">The nav.</param>
         /// <param name="xpath">The xpath.</param>
         /// <returns>System.String.</returns>
+        // ReSharper disable once UnusedMember.Global
         public static string Get(this XPathNavigator nav, string xpath)
         {
-            var iter = nav.Select(xpath);
-            while (iter.MoveNext())
-                return iter.Current.Value;
+            var iterator = nav.Select(xpath);
+            while (iterator.MoveNext())
+                return iterator.Current.Value;
 
             return "<no value>";
         }
@@ -43,13 +45,14 @@ namespace CampaignKit.PortfolioImporter.Extensions
         /// <summary>
         ///     Gets all strings retrieved by selector while iterating the specified iterator.
         /// </summary>
-        /// <param name="iter">The iter.</param>
+        /// <param name="iterator">The iterator.</param>
         /// <param name="selector">The selector.</param>
         /// <returns>IEnumerable&lt;System.String&gt;.</returns>
-        public static IEnumerable<string> GetMany(this XPathNodeIterator iter, Func<XPathNavigator, string> selector)
+        // ReSharper disable once UnusedMember.Global
+        public static IEnumerable<string> GetMany(this XPathNodeIterator iterator, Func<XPathNavigator, string> selector)
         {
-            while (iter.MoveNext())
-                yield return selector.Invoke(iter.Current);
+            while (iterator.MoveNext())
+                yield return selector.Invoke(iterator.Current);
         }
 
         #endregion

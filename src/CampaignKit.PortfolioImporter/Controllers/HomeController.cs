@@ -21,10 +21,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CampaignKit.PortfolioImporter.Controllers
 {
+    /// <inheritdoc />
     /// <summary>
     ///     Class HomeController.
     /// </summary>
-    /// <seealso cref="Microsoft.AspNetCore.Mvc.Controller" />
+    /// <seealso cref="T:Microsoft.AspNetCore.Mvc.Controller" />
     public class HomeController : Controller
     {
         #region Fields
@@ -77,9 +78,9 @@ namespace CampaignKit.PortfolioImporter.Controllers
         {
             if (ModelState.IsValid)
             {
-                var portofolioFile = model.Portfolio;
+                var portfolioFile = model.Portfolio;
                 var characters =
-                    _portfolioImportService.ImportPortfolio(portofolioFile.OpenReadStream())
+                    _portfolioImportService.ImportPortfolio(portfolioFile.OpenReadStream())
                         .Select(c => _characterFormattingService.Format(c));
 
                 return View("ImportResult", characters);

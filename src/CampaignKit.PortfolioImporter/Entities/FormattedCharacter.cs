@@ -18,76 +18,75 @@ using System.Text;
 
 namespace CampaignKit.PortfolioImporter.Entities
 {
-
-	/// <summary>
-	///     Class FormattedCharacter.
-	/// </summary>
-	/// <seealso cref="Character" />
-	public class FormattedCharacter : Character
+    /// <inheritdoc />
+    /// <summary>
+    ///     Class FormattedCharacter.
+    /// </summary>
+    /// <seealso cref="T:CampaignKit.PortfolioImporter.Entities.Character" />
+    public class FormattedCharacter : Character
     {
-		
-		#region Properties
+        #region Properties
 
-		/// <summary>
-		///     Gets or sets the formatted text.
-		/// </summary>
-		/// <value>The formatted text.</value>
-		public string FormattedText { get; set; }
+        /// <summary>
+        ///     Gets or sets the formatted text.
+        /// </summary>
+        /// <value>The formatted text.</value>
+        public string FormattedText { get; set; }
 
-		#endregion
+        #endregion
 
-		#region Formatting Code
+        #region Methods
 
-		public override string getDefaultFormat()
-		{
+        #region Formatting Code
 
-			string[] ignoreList = { "<html", "<head", "<meta", "</head", "<body", "</body", "</html", "<p>Hero Lab", "System Reference Document", "Pathfinder®"};
-			StringReader sr = new StringReader(Html);
-			StringBuilder sb = new StringBuilder();
-			string nextLine = string.Empty;
-			bool ignoreLine = false;
+        /// <inheritdoc />
+        /// <summary>
+        ///     Return the character formatted in the system default format.
+        /// </summary>
+        /// <returns>System.String.</returns>
+        public override string GetDefaultFormat()
+        {
+            string[] ignoreList =
+                { "<html", "<head", "<meta", "</head", "<body", "</body", "</html", "<p>Hero Lab", "System Reference Document", "Pathfinder®" };
+            var sr = new StringReader(Html);
+            var sb = new StringBuilder();
 
-			while (true)
-			{
-				nextLine = sr.ReadLine();
+            while (true)
+            {
+                var nextLine = sr.ReadLine();
 
-				if (nextLine != null)
-				{
-					ignoreLine = ignoreList.Any(s => nextLine.Contains(s));
-					if (ignoreLine)
-					{
-						continue;
-					} else
-					{
-						nextLine = nextLine.Replace("&nbsp;", "\t");
-						nextLine = nextLine.Replace("<b><i>", "{bi|");
-						nextLine = nextLine.Replace("<b>", "{b|");
-						nextLine = nextLine.Replace("<i>", "{i|");
-						nextLine = nextLine.Replace("<sup>", "{/|");
-						nextLine = nextLine.Replace("<br/>", "");
-						nextLine = nextLine.Replace("<hr/>", "---\r\n");
-						nextLine = nextLine.Replace("</b></i>", "}");
-						nextLine = nextLine.Replace("</b>", "}");
-						nextLine = nextLine.Replace("</i>", "}");
-						nextLine = nextLine.Replace("</sup>", "}");
-					}
-					if  (!string.IsNullOrWhiteSpace(nextLine)){
-						sb.AppendLine(nextLine);
-					}					
+                if (nextLine != null)
+                {
+                    var ignoreLine = ignoreList.Any(s => nextLine.Contains(s));
+                    if (ignoreLine)
+                        continue;
 
-				}
-				else
-				{
-					break;
-				}
+                    nextLine = nextLine.Replace("&nbsp;", "\t");
+                    nextLine = nextLine.Replace("<b><i>", "{bi|");
+                    nextLine = nextLine.Replace("<b>", "{b|");
+                    nextLine = nextLine.Replace("<i>", "{i|");
+                    nextLine = nextLine.Replace("<sup>", "{/|");
+                    nextLine = nextLine.Replace("<br/>", "");
+                    nextLine = nextLine.Replace("<hr/>", "---\r\n");
+                    nextLine = nextLine.Replace("</b></i>", "}");
+                    nextLine = nextLine.Replace("</b>", "}");
+                    nextLine = nextLine.Replace("</i>", "}");
+                    nextLine = nextLine.Replace("</sup>", "}");
 
-			}
+                    if (!string.IsNullOrWhiteSpace(nextLine))
+                        sb.AppendLine(nextLine);
+                }
+                else
+                {
+                    break;
+                }
+            }
 
-			return sb.ToString();
+            return sb.ToString();
+        }
 
-		}
+        #endregion
 
-		#endregion
-
-	}
+        #endregion
+    }
 }

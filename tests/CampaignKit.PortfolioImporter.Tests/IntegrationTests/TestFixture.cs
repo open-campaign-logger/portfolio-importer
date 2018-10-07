@@ -26,11 +26,12 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace CampaignKit.PortfolioImporter.Tests.IntegrationTests
 {
+    /// <inheritdoc />
     /// <summary>
     ///     A test fixture which hosts the target project (project we wish to test) in an in-memory server.
     /// </summary>
     /// <typeparam name="TStartup">Target project's startup type</typeparam>
-    public class TestFixture<TStartup> : IDisposable
+    public sealed class TestFixture<TStartup> : IDisposable
     {
         #region Static Fields
 
@@ -46,8 +47,10 @@ namespace CampaignKit.PortfolioImporter.Tests.IntegrationTests
 
         #region Constructors
 
+        /// <inheritdoc />
         /// <summary>
-        ///     Initializes a new instance of the <see cref="TestFixture{TStartup}" /> class.
+        ///     Initializes a new instance of the
+        ///     <see cref="T:CampaignKit.PortfolioImporter.Tests.IntegrationTests.TestFixture`1" /> class.
         /// </summary>
         public TestFixture()
             : this(Path.Combine("src"))
@@ -58,12 +61,12 @@ namespace CampaignKit.PortfolioImporter.Tests.IntegrationTests
         ///     Initializes a new instance of the <see cref="TestFixture{TStartup}" /> class.
         /// </summary>
         /// <param name="solutionRelativeTargetProjectParentDir">The solution relative target project parent dir.</param>
-        protected TestFixture(string solutionRelativeTargetProjectParentDir)
+        private TestFixture(string solutionRelativeTargetProjectParentDir)
         {
             var startupAssembly = typeof(TStartup).GetTypeInfo().Assembly;
             var contentRoot = GetProjectPath(solutionRelativeTargetProjectParentDir, startupAssembly);
 
-            var builder = new Microsoft.AspNetCore.Hosting.WebHostBuilder()
+            var builder = new WebHostBuilder()
                 .UseContentRoot(contentRoot)
                 .ConfigureServices(InitializeServices)
                 .UseEnvironment("Development")
@@ -89,6 +92,7 @@ namespace CampaignKit.PortfolioImporter.Tests.IntegrationTests
 
         #region Implementations
 
+        /// <inheritdoc />
         /// <summary>
         ///     Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
@@ -116,7 +120,7 @@ namespace CampaignKit.PortfolioImporter.Tests.IntegrationTests
             // Get name of the target project which we want to test
             var projectName = startupAssembly.GetName().Name;
             // Get currently executing test project path
-            var applicationBasePath = System.AppContext.BaseDirectory;
+            var applicationBasePath = AppContext.BaseDirectory;
             // Find the folder which contains the solution file.
             // We then use this information to find the target project which we want to test.
             var directoryInfo = new DirectoryInfo(applicationBasePath);
@@ -128,7 +132,7 @@ namespace CampaignKit.PortfolioImporter.Tests.IntegrationTests
 
                 directoryInfo = directoryInfo.Parent;
             }
-            while (directoryInfo.Parent != null);
+            while (directoryInfo?.Parent != null);
 
             throw new Exception($"Solution root could not be located using application root {applicationBasePath}.");
         }
@@ -137,7 +141,7 @@ namespace CampaignKit.PortfolioImporter.Tests.IntegrationTests
         ///     Initializes the services.
         /// </summary>
         /// <param name="services">The services.</param>
-        protected virtual void InitializeServices(IServiceCollection services)
+        private static void InitializeServices(IServiceCollection services)
         {
             var startupAssembly = typeof(TStartup).GetTypeInfo().Assembly;
 
