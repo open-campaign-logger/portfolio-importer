@@ -2,10 +2,10 @@
 
   <PropertyGroup>
     <Description>CampaignKit Portfolio Importer</Description>
-    <Copyright>Copyright © 2017 by Jochen Linnemann</Copyright>
-    <AssemblyTitle>CampaignKit Hero Lab File Handler</AssemblyTitle>
+    <Copyright>Copyright © 2017-2018 by Jochen Linnemann</Copyright>
+    <AssemblyTitle>CampaignKit Portfolio Importer</AssemblyTitle>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <VersionPrefix>2.17.3</VersionPrefix>
+    <VersionPrefix>3.18.10</VersionPrefix>
     <Authors>Jochen Linnemann, talktocory</Authors>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <PreserveCompilationContext>true</PreserveCompilationContext>
