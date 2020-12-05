@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Jochen Linnemann
+﻿// Copyright 2017,2020 Jochen Linnemann
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,10 +13,8 @@
 // limitations under the License.
 
 using System.Linq;
-
 using CampaignKit.PortfolioImporter.Services;
 using CampaignKit.PortfolioImporter.ViewModels;
-
 using Microsoft.AspNetCore.Mvc;
 
 namespace CampaignKit.PortfolioImporter.Controllers
@@ -26,16 +24,10 @@ namespace CampaignKit.PortfolioImporter.Controllers
     ///     Class HomeController.
     /// </summary>
     /// <seealso cref="T:Microsoft.AspNetCore.Mvc.Controller" />
+    [Route("")]
+    [Route("[controller]")]
     public class HomeController : Controller
     {
-        #region Fields
-
-        private readonly ICharacterFormattingService _characterFormattingService;
-
-        private readonly IPortfolioImportService _portfolioImportService;
-
-        #endregion
-
         #region Constructors
 
         /// <summary>
@@ -52,6 +44,14 @@ namespace CampaignKit.PortfolioImporter.Controllers
 
         #endregion
 
+        #region Fields
+
+        private readonly ICharacterFormattingService _characterFormattingService;
+
+        private readonly IPortfolioImportService _portfolioImportService;
+
+        #endregion
+
         #region Methods
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace CampaignKit.PortfolioImporter.Controllers
         ///     - displays the file upload view
         /// </summary>
         /// <returns>ActionResult.</returns>
-        [HttpGet]
+        [HttpGet("Import")]
         public ActionResult Import()
         {
             var model = new ImportViewModel();
@@ -72,7 +72,7 @@ namespace CampaignKit.PortfolioImporter.Controllers
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns>ActionResult.</returns>
-        [HttpPost]
+        [HttpPost("Import")]
         [ValidateAntiForgeryToken]
         public ActionResult Import(ImportViewModel model)
         {
@@ -94,6 +94,8 @@ namespace CampaignKit.PortfolioImporter.Controllers
         ///     - displays the homepage view
         /// </summary>
         /// <returns>IActionResult.</returns>
+        [HttpGet("")]
+        [HttpGet("Index")]
         public IActionResult Index()
         {
             return View();
@@ -104,6 +106,7 @@ namespace CampaignKit.PortfolioImporter.Controllers
         ///     - displays the disclaimer/impress/privacy view
         /// </summary>
         /// <returns>IActionResult.</returns>
+        [HttpGet("Legalities")]
         public IActionResult Legalities()
         {
             return View();

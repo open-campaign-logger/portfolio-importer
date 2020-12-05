@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Jochen Linnemann
+﻿// Copyright 2017,2020 Jochen Linnemann
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,14 +18,11 @@ using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Text;
-
 using CampaignKit.PortfolioImporter.ApiModels;
 using CampaignKit.PortfolioImporter.Controllers;
 using CampaignKit.PortfolioImporter.Services;
 using CampaignKit.PortfolioImporter.Tests.IntegrationTests;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 using Newtonsoft.Json;
 
 namespace CampaignKit.PortfolioImporter.Tests
@@ -36,13 +33,6 @@ namespace CampaignKit.PortfolioImporter.Tests
     [TestClass]
     public class ConversionControllerTest
     {
-        #region Fields
-
-        private readonly string _fileContent;
-        private readonly TestFixture<Startup> _fixture;
-
-        #endregion
-
         #region Constructors
 
         /// <summary>
@@ -51,7 +41,8 @@ namespace CampaignKit.PortfolioImporter.Tests
         public ConversionControllerTest()
         {
             var assembly = typeof(ConversionControllerTest).GetTypeInfo().Assembly;
-            using (var resourceStream = assembly.GetManifestResourceStream("CampaignKit.PortfolioImporter.Tests.Properties.TestData.por"))
+            using (var resourceStream =
+                assembly.GetManifestResourceStream("CampaignKit.PortfolioImporter.Tests.Properties.TestData.por"))
             using (var memoryStream = new MemoryStream())
             {
                 resourceStream.CopyTo(memoryStream);
@@ -63,6 +54,13 @@ namespace CampaignKit.PortfolioImporter.Tests
 
         #endregion
 
+        #region Fields
+
+        private readonly string _fileContent;
+        private readonly TestFixture<Startup> _fixture;
+
+        #endregion
+
         #region Methods
 
         /// <summary>
@@ -71,15 +69,17 @@ namespace CampaignKit.PortfolioImporter.Tests
         [TestMethod]
         public void TestPost()
         {
-            var controller = new ConversionController(new DefaultPortfolioImportService(), new DefaultCharacterFormattingService());
+            var controller = new ConversionController(new DefaultPortfolioImportService(),
+                new DefaultCharacterFormattingService());
 
             var result = controller.Post(new ConversionPostModel { Portfolio = _fileContent });
 
-            var json = JsonConvert.SerializeObject(result.Value, result.SerializerSettings);
+            var json = JsonConvert.SerializeObject(result.Value, (JsonSerializerSettings) result.SerializerSettings);
             var decoded = JsonConvert.DeserializeAnonymousType(json,
                 new
                 {
-                    Data = new[] { new { Type = "", Id = "", Attributes = new { Name = "", FormattedStatBlock = "" } } },
+                    Data = new[]
+                        { new { Type = "", Id = "", Attributes = new { Name = "", FormattedStatBlock = "" } } },
                     Errors = new[] { new { Message = "" } }
                 });
 
@@ -96,14 +96,16 @@ namespace CampaignKit.PortfolioImporter.Tests
         {
             var input = JsonConvert.SerializeObject(new { Portfolio = _fileContent });
 
-            var response = _fixture.Client.PostAsync("/api/Conversion", new StringContent(input, Encoding.UTF8, "application/json")).Result;
+            var response = _fixture.Client
+                .PostAsync("/api/Conversion", new StringContent(input, Encoding.UTF8, "application/json")).Result;
             response.EnsureSuccessStatusCode();
 
             var json = response.Content.ReadAsStringAsync().Result;
             var decoded = JsonConvert.DeserializeAnonymousType(json,
                 new
                 {
-                    Data = new[] { new { Type = "", Id = "", Attributes = new { Name = "", FormattedStatBlock = "" } } },
+                    Data = new[]
+                        { new { Type = "", Id = "", Attributes = new { Name = "", FormattedStatBlock = "" } } },
                     Errors = new[] { new { Message = "" } }
                 });
 

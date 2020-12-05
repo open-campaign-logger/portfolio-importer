@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Jochen Linnemann
+﻿// Copyright 2017,2020 Jochen Linnemann
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,11 +13,10 @@
 // limitations under the License.
 
 using CampaignKit.PortfolioImporter.Services;
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Hosting;
 
 namespace CampaignKit.PortfolioImporter
 {
@@ -33,19 +32,18 @@ namespace CampaignKit.PortfolioImporter
         /// </summary>
         /// <param name="app">The application.</param>
         /// <param name="env">The env.</param>
-        /// <param name="loggerFactory">The logger factory.</param>
+
         // ReSharper disable once UnusedMember.Global
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-
-            loggerFactory.AddConsole();
 
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
 
             app.UseFileServer();
-            app.UseMvcWithDefaultRoute();
+            app.UseRouting();
+            app.UseEndpoints(routes => routes.MapControllers());
         }
 
         /// <summary>

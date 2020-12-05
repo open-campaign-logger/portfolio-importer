@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Jochen Linnemann
+﻿// Copyright 2017,2020 Jochen Linnemann
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,9 +16,7 @@ using System;
 using System.IO;
 using System.IO.Compression;
 using System.Reflection;
-
 using CampaignKit.PortfolioImporter.Entities.HeroLab;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CampaignKit.PortfolioImporter.Tests
@@ -47,26 +45,26 @@ namespace CampaignKit.PortfolioImporter.Tests
 
             foreach (var entry in entries)
                 if (entry.EndsWith(".por"))
-                    using (var resourceStream = assembly.GetManifestResourceStream(entry))
+                {
+                    using var resourceStream = assembly.GetManifestResourceStream(entry);
+                    using var archive = new ZipArchive(resourceStream ?? throw new InvalidOperationException());
+
+                    var por = new HeroLabPortfolio(archive);
+                    Assert.IsTrue(por.Characters.Count > 0);
+
+                    var di = new DirectoryInfo(myDocPath);
+                    if (!di.Exists) di.Create();
+
+                    foreach (var hero in por.Characters)
                     {
-                        using (var archive = new ZipArchive(resourceStream))
-                        {
-                            var por = new HeroLabPortfolio(archive);
-                            Assert.IsTrue(por.Characters.Count > 0);
+                        var invalid = new string(Path.GetInvalidFileNameChars()) +
+                            new string(Path.GetInvalidPathChars());
 
-                            var di = new DirectoryInfo(myDocPath);
-                            if (!di.Exists) di.Create();
+                        foreach (var c in invalid) hero.Name = hero.Name.Replace(c.ToString(), "");
 
-                            foreach (var hero in por.Characters)
-                            {
-                                var invalid = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
-
-                                foreach (var c in invalid) hero.Name = hero.Name.Replace(c.ToString(), "");
-
-                                File.WriteAllText(Path.Combine(myDocPath, hero.Name + ".txt"), hero.GetDefaultFormat());
-                            }
-                        }
+                        File.WriteAllText(Path.Combine(myDocPath, hero.Name + ".txt"), hero.GetDefaultFormat());
                     }
+                }
         }
 
         #endregion

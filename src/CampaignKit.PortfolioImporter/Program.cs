@@ -1,4 +1,4 @@
-﻿// Copyright 2017 Jochen Linnemann
+﻿// Copyright 2017,2020 Jochen Linnemann
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,8 +13,8 @@
 // limitations under the License.
 
 using System.IO;
-
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace CampaignKit.PortfolioImporter
 {
@@ -32,6 +32,7 @@ namespace CampaignKit.PortfolioImporter
         public static void Main(string[] args)
         {
             var host = new WebHostBuilder()
+                .ConfigureLogging(logging => logging.AddConsole())
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
