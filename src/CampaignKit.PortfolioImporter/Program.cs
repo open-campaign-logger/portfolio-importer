@@ -14,6 +14,7 @@
 
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace CampaignKit.PortfolioImporter
@@ -26,20 +27,31 @@ namespace CampaignKit.PortfolioImporter
         #region Methods
 
         /// <summary>
+        ///     Creates the host builder.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns>IHostBuilder.</returns>
+        public static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            return Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder
+                        .ConfigureLogging(logging => logging.AddConsole())
+                        .UseContentRoot(Directory.GetCurrentDirectory())
+                        .UseStartup<Startup>();
+                });
+        }
+
+        /// <summary>
         ///     Defines the entry point of the application.
         /// </summary>
         /// <param name="args">The arguments.</param>
         public static void Main(string[] args)
         {
-            var host = new WebHostBuilder()
-                .ConfigureLogging(logging => logging.AddConsole())
-                .UseKestrel()
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseIISIntegration()
-                .UseStartup<Startup>()
-                .Build();
-
-            host.Run();
+            CreateHostBuilder(args)
+                .Build()
+                .Run();
         }
 
         #endregion
