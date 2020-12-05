@@ -286,3 +286,4 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+src/CampaignKit.PortfolioImporter/Properties/ServiceDependencies/cl-portfolio-import-service - Web Deploy/profile.arm.json
