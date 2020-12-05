@@ -43,6 +43,7 @@ namespace CampaignKit.PortfolioImporter
 
             app.UseFileServer();
             app.UseRouting();
+            app.UseCors();
             app.UseEndpoints(routes => routes.MapControllers());
         }
 
@@ -60,11 +61,10 @@ namespace CampaignKit.PortfolioImporter
                 options.AddPolicy("CorsPolicy", builder => builder
                     .AllowAnyOrigin()
                     .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .AllowCredentials());
+                    .AllowAnyHeader());
             });
 
-            services.AddMvc();
+            services.AddMvc().AddNewtonsoftJson();
 
             services.AddTransient<IPortfolioImportService, DefaultPortfolioImportService>();
             services.AddTransient<ICharacterFormattingService, DefaultCharacterFormattingService>();
